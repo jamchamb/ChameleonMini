@@ -138,6 +138,9 @@ class Device:
         
         if (statusCode == self.STATUS_CODE_OK_WITH_TEXT):
             result['response'] =  self.readResponse()
+            if cmd.upper().startswith('SEND') and result['response'] != 'NO DATA':
+                result['bitcount'] = self.readResponse()
+                result['parity'] = self.readResponse()
         elif (statusCode == self.STATUS_CODE_TRUE):
             result['response'] = True
         elif (statusCode == self.STATUS_CODE_FALSE):
